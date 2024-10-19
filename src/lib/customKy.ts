@@ -11,7 +11,7 @@ export const customKy = ky
         (request) => console.log(request.url),
         (request) => {
           const url = new URL(request.url);
-          url.searchParams.set("apikey", "demo" /*env.ALPHAVANTAGE_API_KEY*/);
+          url.searchParams.set("apikey", env.ALPHAVANTAGE_API_KEY);
           return new Request(url.toString(), request);
         },
       ],

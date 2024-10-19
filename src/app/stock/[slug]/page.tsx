@@ -1,5 +1,4 @@
 import { api, HydrateClient } from "~/trpc/server";
-import { useEffect, useState } from "react";
 import { TrendingUp, TrendingDown } from "lucide-react";
 
 export default async function Page({ params }: { params: { slug: string } }) {
