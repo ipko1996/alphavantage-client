@@ -1,9 +1,11 @@
 import {
   type BestMatchesResponse,
   type QuoteResponse,
+  TimeSeriesDailyResponse,
   globalQuoteSchema,
   quoteResponseSchema,
   searchResponse,
+  timeSeriesDailySchema,
 } from "../../types/alphavantage";
 import { z } from "zod";
 import { customKy } from "~/lib/customKy";
@@ -92,6 +94,41 @@ export const stockCoreRoute = createTRPCRouter({
         previousClose: matches["08. previous close"],
         change: matches["09. change"],
         changePercent: matches["10. change percent"],
+      };
+    }),
+  timeSeriesDaily: publicProcedure
+    .input(z.object({ symbol: z.string() }))
+    .output(timeSeriesDailySchema)
+    .query(async ({ input }) => {
+      const TIME_SERIES_DAILY_URL = `query?function=TIME_SERIES_DAILY&symbol=${input.symbol}`;
+      const response = await customKy<TimeSeriesDailyResponse>(
+        TIME_SERIES_DAILY_URL,
+      ).json();
+
+      const metaData = response["Meta Data"];
+      const timeSeries = response["Time Series (Daily)"];
+      const transformedTimeSeriesDaily = Object.fromEntries(
+        Object.entries(timeSeries).map(([date, data]) => [
+          date,
+          {
+            open: data["1. open"],
+            high: data["2. high"],
+            low: data["3. low"],
+            close: data["4. close"],
+            volume: data["5. volume"],
+          },
+        ]),
+      );
+
+      return {
+        metaData: {
+          information: metaData["1. Information"],
+          symbol: metaData["2. Symbol"],
+          lastRefreshed: metaData["3. Last Refreshed"],
+          outputSize: metaData["4. Output Size"],
+          timeZone: metaData["5. Time Zone"],
+        },
+        timeSeriesDaily: transformedTimeSeriesDaily,
       };
     }),
 });
