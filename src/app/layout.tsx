@@ -36,9 +36,9 @@ export default function RootLayout({
                 <nav className="ml-auto flex gap-4 sm:gap-6">
                   <Link
                     className="hover:text-primary text-sm font-medium"
-                    href="/about"
+                    href="/favorites"
                   >
-                    About
+                    Favorites
                   </Link>
                 </nav>
               </header>
