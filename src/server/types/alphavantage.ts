@@ -33,20 +33,19 @@ export interface QuoteResponse {
   "Global Quote": GlobalQuote;
 }
 
+export const oneSearch = z.object({
+  symbol: z.string(),
+  name: z.string(),
+  type: z.string(),
+  region: z.string(),
+  marketOpen: z.string(),
+  marketClose: z.string(),
+  timezone: z.string(),
+  currency: z.string(),
+  matchScore: z.string(),
+});
 export const searchResponse = z.object({
-  bestMatches: z.array(
-    z.object({
-      symbol: z.string(),
-      name: z.string(),
-      type: z.string(),
-      region: z.string(),
-      marketOpen: z.string(),
-      marketClose: z.string(),
-      timezone: z.string(),
-      currency: z.string(),
-      matchScore: z.string(),
-    }),
-  ),
+  bestMatches: z.array(oneSearch),
 });
 
 export const globalQuoteSchema = z.object({
@@ -61,3 +60,16 @@ export const globalQuoteSchema = z.object({
   change: z.string(),
   changePercent: z.string(),
 });
+
+export const quoteResponseSchema = z.discriminatedUnion("status", [
+  z.object({
+    status: z.literal("success"),
+    data: globalQuoteSchema,
+  }),
+  z.object({
+    status: z.literal("failed"),
+    error: z.string(), // Error message
+  }),
+]);
+
+export type OneSearchSchema = z.infer<typeof oneSearch>;

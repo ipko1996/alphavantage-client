@@ -1,8 +1,15 @@
 import { api, HydrateClient } from "~/trpc/server";
 import { TrendingUp, TrendingDown } from "lucide-react";
+import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const stock = await api.stock.getQuote({ symbol: params.slug });
+  const stockData = await api.stock.getQuote({ symbol: params.slug });
+
+  if (stockData.status === "failed") {
+    return notFound();
+  }
+
+  const { data: stock } = stockData;
 
   const priceChange = parseFloat(stock.change);
 
