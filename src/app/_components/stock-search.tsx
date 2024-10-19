@@ -3,13 +3,19 @@
 import React from "react";
 import Link from "next/link";
 import { useState } from "react";
+import { useLocalStorage } from "@mantine/hooks";
 import { Combobox, Loader, TextInput, useCombobox } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import { api } from "~/trpc/react";
+import { type OneSearchSchema } from "~/server/types/alphavantage";
 
 export const StockSearch = () => {
   const [value, setValue] = useState("tesco");
   const [debouncedValue] = useDebouncedValue(value, 500);
+  const [_, setStoredStocks] = useLocalStorage<OneSearchSchema[]>({
+    key: "stocks",
+    defaultValue: [],
+  });
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -24,9 +30,34 @@ export const StockSearch = () => {
     },
   );
 
+  const handleStockClick = (match: OneSearchSchema) => {
+    setStoredStocks((prevStocks) => {
+      // Check if the stock is already in the favorites
+      const isStockAlreadyAdded = prevStocks.some(
+        (stock) => stock.symbol === match.symbol,
+      );
+
+      // If it's already added, return the existing stocks
+      if (isStockAlreadyAdded) {
+        return prevStocks;
+      }
+
+      // Otherwise, add the new stock to the start of the array
+      const updatedStocks = [match, ...prevStocks];
+
+      // Limit to a maximum of 5 stocks
+      return updatedStocks.length > 5
+        ? updatedStocks.slice(0, 5)
+        : updatedStocks;
+    });
+  };
+
   const options = (data?.bestMatches ?? []).map((match) => (
     <Combobox.Option value={`${match.name} ${match.symbol}`} key={match.symbol}>
-      <Link href={`/stock/${match.symbol}`}>
+      <Link
+        href={`/stock/${match.symbol}`}
+        onClick={() => handleStockClick(match)}
+      >
         <div>{match.name}</div>
         <div className="text-sm text-gray-500">{match.symbol}</div>
       </Link>
