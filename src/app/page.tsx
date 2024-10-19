@@ -1,52 +1,17 @@
-"use client";
-
-import Link from "next/link";
-import { useState } from "react";
-import {
-  Autocomplete,
-  AutocompleteProps,
-  Avatar,
-  Group,
-  Text,
-} from "@mantine/core";
-import { LatestPost } from "~/app/_components/post";
-import { HydrateClient } from "~/trpc/server";
-import { api } from "~/trpc/react";
+import { StockSearch } from "./_components/stock-search";
 
 export default function Home() {
-  const [value, setValue] = useState("");
-  const { data, error } = api.search.keywordQuery.useQuery({
-    keyword: "tesco",
-  });
-  console.log(data);
-
-  const renderAutocompleteOption: AutocompleteProps["renderOption"] = ({
-    option,
-  }) => (
-    <Group gap="sm">
-      <div>
-        <Link href={`/stock/${option.value.split(" ").at(-1)}`}>
-          <Text size="sm">{option.value}</Text>
-        </Link>
-      </div>
-    </Group>
-  );
-
   return (
-    <main className="flex h-screen items-center justify-center">
-      <div className="w-1/2">
-        <Autocomplete
-          label="Search for a stock ..."
-          renderOption={renderAutocompleteOption}
-          error={error ? "Something went wrong" : ""}
-          data={
-            data?.bestMatches.map((match) => `${match.name} ${match.symbol}`) ??
-            []
-          }
-          value={value}
-          onChange={setValue}
-        />
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        <h1 className="mb-6 text-center text-3xl font-bold">
+          Find Your Next Investment
+        </h1>
+        <StockSearch />
+        <p className="text-muted-foreground mt-4 text-center text-sm">
+          Search for stocks, analyze market trends, and make informed decisions.
+        </p>
       </div>
-    </main>
+    </div>
   );
 }
