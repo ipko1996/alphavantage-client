@@ -10,7 +10,7 @@ import { api } from "~/trpc/react";
 import { type OneSearchSchema } from "~/server/types/alphavantage";
 
 export const StockSearch = () => {
-  const [value, setValue] = useState("tesco");
+  const [value, setValue] = useState("");
   const [debouncedValue] = useDebouncedValue(value, 500);
   const [_, setStoredStocks] = useLocalStorage<OneSearchSchema[]>({
     key: "stocks",
