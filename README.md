@@ -79,7 +79,7 @@ The application is deployed on **Vercel** and can be accessed publicly at [https
 - **Alphavantage API**: A public data source for retrieving stock information.
 - **tRPC (Tanstack Query)**: Used for efficient data fetching and caching.
 - **TailwindCSS**: A utility-first framework for responsive and mobile-friendly design.
-- **Local Storage**: Used to store the last five searched stocks.
+- **Local Storage**: Used to store the favorite stocks.
 - **Mantine**: A library used for the autocomplete component and other UI elements.
 
 ## Future Improvements
