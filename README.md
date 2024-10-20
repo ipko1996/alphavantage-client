@@ -75,12 +75,12 @@ The application is deployed on **Vercel** and can be accessed publicly at [https
 
 ## Tech Stack
 
-- **Next.js with T3 starter**: React-based framework for server-side rendering and routing with [https://create.t3.gg/](T3 Starter).
-- **Alphavantage API**: Public data source for retrieving stock information.
+- **Next.js with T3 Starter**: A React-based framework for server-side rendering and routing using the [T3 Starter](https://create.t3.gg/).
+- **Alphavantage API**: A public data source for retrieving stock information.
 - **tRPC (Tanstack Query)**: Used for efficient data fetching and caching.
-- **TailwindCSS**: For responsive and mobile-friendly design.
+- **TailwindCSS**: A utility-first framework for responsive and mobile-friendly design.
 - **Local Storage**: Used to store the last five searched stocks.
-- **Mantine**: Used for autocomplete component and some other elements.
+- **Mantine**: A library used for the autocomplete component and other UI elements.
 
 ## Future Improvements
 
