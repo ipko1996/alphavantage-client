@@ -1,7 +1,7 @@
 import {
   type BestMatchesResponse,
   type QuoteResponse,
-  TimeSeriesDailyResponse,
+  type TimeSeriesDailyResponse,
   globalQuoteSchema,
   quoteResponseSchema,
   searchResponse,

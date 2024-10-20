@@ -44,17 +44,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-8">
             <div className="col-span-1 rounded-lg border p-4 shadow-md md:col-span-5">
               <h3 className="mb-4 text-xl">Price Chart</h3>
-              {/* Placeholder for an actual chart component */}
-              {/* <div
-                style={{
-                  height: "300px",
-                  background:
-                    "linear-gradient(45deg, #f1f3f5 25%, #e9ecef 25%, #e9ecef 50%, #f1f3f5 50%, #f1f3f5 75%, #e9ecef 75%, #e9ecef 100%)",
-                  backgroundSize: "40px 40px",
-                }}
-              >
-                <p className="pt-10 text-center">Chart placeholder</p>
-              </div> */}
               <StockChart symbol={params.slug} />
             </div>
             <div className="col-span-1 space-y-4 md:col-span-3">

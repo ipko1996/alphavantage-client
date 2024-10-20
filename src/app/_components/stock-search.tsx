@@ -93,7 +93,7 @@ export const StockSearch = () => {
         />
       </Combobox.Target>
 
-      {!error && !isFetching && (
+      {!error && !isFetching && data && (
         <Combobox.Dropdown>
           <Combobox.Options>
             {options}
