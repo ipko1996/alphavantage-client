@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a simple stock search and detail viewing application built with **Next.js**, utilizing the **Alphavantage API** to retrieve stock data. The application allows users to search for stock quotes by symbol or name and view detailed information on the selected stock, including its current price and historical performance in a chart. Additionally, users can view their last five searched stocks in a favorites section, stored in **local storage**.
+This project is a simple stock search and detail viewing application built with **Next.js**, utilizing the **Alphavantage API** to retrieve stock data. The application allows users to search for stock quotes by symbol or name and view detailed information on the selected stock, including its current price and historical performance in a chart. Additionally, users can view their favorite stocks in a favorites section, stored in **local storage**.
 
 The application is mobile-friendly, responsive, and features server-side rendering (SSR) for enhanced performance. A caching mechanism is also implemented using **tRPC** and **Tanstack Query** to minimize API requests and optimize data retrieval.
 
@@ -25,7 +25,7 @@ You can access the deployed version of the app [here](https://alphavantage-clien
    - Implemented using **Next.js** server-side rendering (SSR) for faster loading.
    
 ### 3. **Favorites View**
-   - A separate view where users can see their last five searched stocks.
+   - A separate view where users can see their favorite stocks.
    - Uses **local storage** to store and retrieve the user's search history.
 
 ### 4. **Error Handling**

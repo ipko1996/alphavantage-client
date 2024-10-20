@@ -2,11 +2,11 @@
 
 import { useLocalStorage } from "@mantine/hooks";
 import Link from "next/link";
-import { type OneSearchSchema } from "~/server/types/alphavantage";
+import { type GlobalQuoteSchema } from "~/server/types/alphavantage";
 
 export default function Favorites() {
-  const [storedStocks] = useLocalStorage<OneSearchSchema[]>({
-    key: "stocks",
+  const [storedStocks] = useLocalStorage<GlobalQuoteSchema[]>({
+    key: "favorite-stocks",
     defaultValue: [],
   });
 
@@ -26,7 +26,7 @@ export default function Favorites() {
                 href={`/stock/${stock.symbol}`}
                 className="flex-1 text-blue-500 hover:underline"
               >
-                {stock.name} - {stock.symbol}
+                {stock.symbol}
               </Link>
             </li>
           ))}

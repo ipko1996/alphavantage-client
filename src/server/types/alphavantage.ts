@@ -112,3 +112,4 @@ export const quoteResponseSchema = z.discriminatedUnion("status", [
 ]);
 
 export type OneSearchSchema = z.infer<typeof oneSearch>;
+export type GlobalQuoteSchema = z.infer<typeof globalQuoteSchema>;

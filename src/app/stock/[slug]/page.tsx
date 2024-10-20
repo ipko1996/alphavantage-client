@@ -2,6 +2,7 @@ import { api, HydrateClient } from "~/trpc/server";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { notFound } from "next/navigation";
 import StockChart from "~/app/_components/stock-chart";
+import { AddToFavoritesButton } from "~/app/_components/add-to-favorites";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const stockData = await api.stock.getQuote({ symbol: params.slug });
@@ -19,11 +20,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <div className="container mx-auto py-10">
         <div className="space-y-10">
           <div className="flex items-end justify-between">
-            <div>
-              <h2 className="text-2xl font-semibold">{stock.symbol}</h2>
-              <p className="text-sm text-gray-500">
-                Last updated: {stock.latestTradingDay}
-              </p>
+            <div className="flex items-center gap-4">
+              <div>
+                <h2 className="text-2xl font-semibold">{stock.symbol}</h2>
+                <p className="text-sm text-gray-500">
+                  Last updated: {stock.latestTradingDay}
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <AddToFavoritesButton stock={stock} />
+              </div>
             </div>
             <span
               className={`rounded-full px-4 py-2 text-xl font-bold ${
